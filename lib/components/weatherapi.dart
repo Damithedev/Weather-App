@@ -20,7 +20,7 @@ class weatherapi {
 
   gethourlytemp() async {
     final response = await http.get(Uri.parse(url +
-        "latitude=$lat&longitude=$long&hourly=temperature_2m&forecast_days=1&hourly=weathercode&timezone=WAT"));
+        "latitude=$lat&longitude=$long&hourly=temperature_2m&forecast_days=1&hourly=weathercode&timezone=auto"));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {

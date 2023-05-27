@@ -27,16 +27,30 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  ScrollController _scrollController = ScrollController();
+  final Highlighted = GlobalKey();
+  final normal = GlobalKey();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    Scrolltoitem();
+  }
+
+  Future<void> Scrolltoitem() async {
+    await Future.delayed(Duration(seconds: 5));
+    print("jumpingg");
+    final context = Highlighted.currentContext;
+    await Scrollable.ensureVisible(context!);
+    // Call your desired function here
+    // This function will run after 5 seconds of opening the page
   }
 
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     String currentTime = DateFormat('HH:00').format(now);
+
     print(currentTime);
     return Scaffold(
       backgroundColor: Colors.black,
@@ -152,6 +166,7 @@ class _MainAppState extends State<MainApp> {
                 Flexible(
                   fit: FlexFit.loose,
                   child: ListView.builder(
+                    controller: _scrollController,
                     itemCount: widget.temperaturelist.length,
                     itemBuilder: (context, index) {
                       String img = "";
@@ -220,6 +235,7 @@ class _MainAppState extends State<MainApp> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
+                          key: currentTime == time ? Highlighted : null,
                           height: 120,
                           width: 70,
                           decoration: BoxDecoration(
